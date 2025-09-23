@@ -1,0 +1,7 @@
+#Environments
+.venv/
+venv/
+.env
+
+#Python clutter
+__pycache__/
