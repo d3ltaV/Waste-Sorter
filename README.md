@@ -20,3 +20,5 @@ The model was trained in three phases:
 2. last.pt was then trained with SGD for 200 Epochs
 3. last.pt from step 2 was trained with SGD for 150 epochs with augmentation=True
 
+The inspiration for this training style came from this paper: https://www.opt-ml.org/papers/2021/paper53.pdf
+
