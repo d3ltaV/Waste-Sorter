@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Waste Sorter</title>
+{% endblock head %}
+
+{% block body %}
+<section class="content">
+    <div class="container">
+        <h1>Welcome to Waste Sorter!</h1>
+        <p>Upload an image and the program will classify into one of the following categories: trash, compost, recycling.</p>
+        <video src="{{ url_for('static', filename='img/sample.mp4') }}" autoplay></video>
+    </div>
+</section>
+
+{% endblock body %}
