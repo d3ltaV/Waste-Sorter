@@ -22,3 +22,12 @@ The model was trained in three phases:
 
 The inspiration for this training style came from this paper: https://www.opt-ml.org/papers/2021/paper53.pdf
 
+
+### File Structure (CURRENT)
+- **static/css/** — CSS for the GUI  
+- **templates/** — HTML template for the GUI  
+- **main.py** — Main interface for program  
+- **model.py** — file where hyperparameters are edited and the model is trained  
+- **utils.py** — helper functions
+
+
