@@ -14,7 +14,7 @@ object_categories = {
     "pop tab": "recycling",
     "scrap metal": "recycling",
 
-    # compost
+    # compost asjfhiasj
     "food waste": "compost",
 
     # trash
