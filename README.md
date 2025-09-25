@@ -19,6 +19,7 @@ NMH Waste Sorter is built by Alan, Joelle, Lorcan, and Siddiqi. This program use
 |   main.py                     # Main program file
 |   utils.py                    # Helper functions
 |   model.py                    # Training file for model
+|   webcam.py                   # Testing YOLO model for family day!
 |   README.md                   # Documentation   
 |
 ```
@@ -44,6 +45,6 @@ All: testing & debugging
 # Progress 09/24
 
 Alan: More frontend/Flask work.
-Joelle: Update README.md file, got model to run on her machine, work on eliminating classes without enough images.
-Lorcan: Added SGD to improve model, which boosted mAP. Added webcam file for testing purposes.
+Joelle: Update README.md file, got model to run on her machine, work on eliminating classes without enough images, pushed work in progress to Github.
+Lorcan: Added SGD to improve model, which boosted mAP. Added webcam file for testing purposes, pushed to Github.
 Siddiqi: Work on function to decide which specific categories go to trash, recycling, or other.
