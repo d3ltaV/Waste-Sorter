@@ -5,3 +5,4 @@ venv/
 
 #Python clutter
 __pycache__/
+datasets/
