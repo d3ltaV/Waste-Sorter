@@ -39,3 +39,11 @@ Lorcan: train model
 Joelle: initial file structure and README.md file, model validation
 Siddiqi: backend/helper functions
 All: testing & debugging
+
+---
+# Progress 09/24
+
+Alan: More frontend/Flask work.
+Joelle: Update README.md file, got model to run on her machine, work on eliminating classes without enough images.
+Lorcan: Added SGD to improve model, which boosted mAP. Added webcam file for testing purposes.
+Siddiqi: Work on function to decide which specific categories go to trash, recycling, or other.
