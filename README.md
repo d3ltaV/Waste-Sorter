@@ -44,7 +44,15 @@ All: testing & debugging
 ---
 # Progress 09/24
 
-Alan: More frontend/Flask work.
-Joelle: Update README.md file, got model to run on her machine, work on eliminating classes without enough images, pushed work in progress to Github.
-Lorcan: Added SGD to improve model, which boosted mAP. Added webcam file for testing purposes, pushed to Github.
-Siddiqi: Work on function to decide which specific categories go to trash, recycling, or other.
+- Alan: More frontend/Flask work.
+- Joelle: Update README.md file, got model to run on her machine, work on eliminating classes without enough images, pushed work in progress to Github.
+- Lorcan: Added SGD to improve model, which boosted mAP. Added webcam file for testing purposes, pushed to Github.
+- Siddiqi: Work on function to decide which specific categories go to trash, recycling, or other.
+
+---
+# Progress 09/24
+
+- Alan: Finish frontend work and pushed -> integrated camera feature and writing output
+- Joelle: Update README.md file, tried to improve model accuracy (working on understanding data)
+- Lorcan: Merged everything to MVP branch, testing functionality, look at ways of improving model accuracy
+- Siddiqi: Finished function for mapping, helped test final project
