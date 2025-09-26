@@ -14,6 +14,14 @@
     </header>
     {% block body %}{% endblock body %}
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        async function updateDetection() {
+          const res = await fetch("/detection");
+          const data = await res.json();
+          document.getElementById("detected").innerText =
+            `Detected: ${data.label} (${data.category}) | Confidence: ${data.confidence}`;
+        }
+        setInterval(updateDetection, 500); // update every 0.5s
+    </script>
 </body>
 </html>

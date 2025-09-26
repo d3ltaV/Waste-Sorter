@@ -9,7 +9,8 @@
     <div class="container">
         <h1>Welcome to Waste Sorter!</h1>
         <p>Upload an image and the program will classify into one of the following categories: trash, compost, recycling.</p>
-        <video src="{{ url_for('static', filename='img/sample.mp4') }}" autoplay></video>
+        <img src="{{ url_for('video') }}" width="720">
+        <p id="detected">Detected: None</p>
     </div>
 </section>
 
