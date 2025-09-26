@@ -1,66 +1,30 @@
 {% extends "base.html" %}
-<!-- Reuse base layout again -->
 
-{% block title %}Results | Waste-Sorter{% endblock %}
+{% block head %}<title>Results · Waste-Sorter</title>{% endblock head %}
 
-{% block content %}
-<section class="grid">
-  <!-- Card 1: Summary of the prediction -->
-  <div class="card">
-    <h2>Prediction</h2>
-    <!-- Include the small reusable component to display class + confidence -->
-    {% include "components/_prediction_card.html" %}
-    <!-- Legend shows color mapping so users understand box colors -->
-    <div class="legend">
-      <span class="tag recycle">Recycling</span>
-      <span class="tag trash">Trash</span>
-      <span class="tag compost">Compost</span>
-    </div>
-    <!-- Easy way to try another image -->
-    <a class="btn" href="{{ url_for('index') }}">Try another image</a>
-  </div>
+{% block body %}
+<section class="content">
+  <div class="container">
+    <h1>Prediction Results</h1>
 
-  <!-- Card 2: The uploaded image, with optional SVG overlay for detection boxes -->
-  <div class="card">
-    <h2>Image</h2>
-    <div class="image-wrap">
-      <!-- image_url points to the saved upload in /static/uploads/... -->
-      <img src="{{ image_url }}" alt="Uploaded item" class="result-img">
+    <section class="card result">
+      <div class="result-header">
+        <span class="pill pill--recycling" aria-label="Category">Recycling</span>
+        <strong class="label">Bottle</strong>
+      </div>
 
-      {% if show_boxes and boxes %}
-      <!-- The SVG overlay sits on top of the image with absolute positioning (via CSS).
-           viewBox is set to the image’s pixel size so our box coordinates line up perfectly. -->
-      <svg class="overlay" viewBox="0 0 {{ img_w }} {{ img_h }}" preserveAspectRatio="none" aria-hidden="true">
-        {% for b in boxes %}
-        <!-- Each rect draws one bounding box. We also add a class based on the predicted class to color it. -->
-        <rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}"
-              class="box {{ b.cls|lower }}" />
-        <!-- Label near the top-left of the box with class and confidence -->
-        <text x="{{ b.x + 4 }}" y="{{ b.y + 16 }}" class="box-label">
-          {{ b.cls }} {{ (b.conf * 100) | round(1) }}%
-        </text>
-        {% endfor %}
-      </svg>
-      {% endif %}
-    </div>
-  </div>
+      <div class="progress" aria-label="Confidence">
+        <div class="progress__bar" style="width: 92%"></div>
+      </div>
 
-  <!-- Card 3: Extra details — useful for transparency/explainability -->
-  <div class="card">
-    <h2>Details</h2>
-    <ul class="list">
-      <li><strong>Top class:</strong> {{ top_class }}</li>
-      <li><strong>Confidence:</strong> {{ (top_conf * 100) | round(1) }}%</li>
-      {% if secondary %}
-      <!-- If backend provides secondary candidates, list them here -->
-      <li><strong>Other candidates:</strong>
-        {% for s in secondary %}
-          {{ s.cls }} ({{ (s.conf * 100) | round(1) }}%){% if not loop.last %}, {% endif %}
-        {% endfor %}
-      </li>
-      {% endif %}
-      <li><strong>Model:</strong> YOLOv8s (custom TACO → 3 classes)</li>
-    </ul>
+      <img class="result-img" src="{{ url_for('static', filename='img/sample.jpg') }}" alt="Analyzed item">
+
+      <div class="legend">
+        <span class="legend__key"><span class="swatch swatch--recycling"></span>Recycling</span>
+        <span class="legend__key"><span class="swatch swatch--trash"></span>Trash</span>
+        <span class="legend__key"><span class="swatch swatch--compost"></span>Compost</span>
+      </div>
+    </section>
   </div>
 </section>
-{% endblock %}
+{% endblock body %}

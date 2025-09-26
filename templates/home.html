@@ -1,0 +1,48 @@
+{% block body %}
+<section class="content">
+  <div class="container">
+
+    <header class="hero fade-in-up">
+      <div class="hero__eyebrow">Computer Vision Demo</div>
+      <h1 class="hero__title">Waste-Sorter</h1>
+      <p class="hero__sub">
+        Real-time sorting into <strong>Recycling</strong>, <strong>Trash</strong>, or <strong>Compost</strong> using YOLOv8.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="/">Start Live</a>
+        <a class="btn btn--ghost" href="/docs">View Docs</a>
+      </div>
+    </header>
+
+    <div class="grid-2">
+      <section class="card fade-in-up" style="--delay:120ms">
+        <h2 class="section-title">Live camera</h2>
+        <img class="live-frame" src="{{ url_for('video') }}" alt="Live feed">
+        <!-- This line auto-updates when the backend is running -->
+        <p id="detected" class="detected-text pulse">Detected: None</p>
+        <div class="hint">Tip: press <kbd>F</kbd> to go full screen (browser)</div>
+      </section>
+
+      <section class="card fade-in-up" style="--delay:240ms">
+        <h2 class="section-title">How it works</h2>
+        <ol class="steps">
+          <li>
+            <span class="step__icon">📷</span>
+            We capture a frame from your camera or an uploaded photo.
+          </li>
+          <li>
+            <span class="step__icon">🧠</span>
+            YOLOv8 detects objects and returns class names.
+          </li>
+          <li>
+            <span class="step__icon">♻️</span>
+            We map to <em>Recycling</em>, <em>Trash</em>, or <em>Compost</em> and show confidence.
+          </li>
+        </ol>
+        <div class="note">Model trained on TACO (YOLO format) and merged to 3 categories.</div>
+      </section>
+    </div>
+
+  </div>
+</section>
+{% endblock body %}

@@ -1,53 +1,63 @@
-<!doctype html>
-<!-- The doctype tells the browser to use modern HTML rendering mode -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Character encoding: UTF-8 supports most characters/symbols -->
-  <meta charset="utf-8" />
-  <!-- Makes layout responsive on phones (sets width to device width) -->
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <!-- {% block title %} lets child pages set their own <title> -->
-  <title>{% block title %}Waste-Sorter{% endblock %}</title>
+  <meta charset="UTF-8">
+  <!-- IE meta harmless; you can remove if you want -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Load our CSS. url_for('static', ...) generates the correct path. -->
+  <!-- Team's base styles first (Montserrat + resets) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  <!-- Your enhancements after (override safely) -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-  <!-- Optional nice font. Preconnect hints speed up font loading. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Extra head content (rare) can be inserted by child templates -->
-  {% block head %}{% endblock %}
+  {% block head %}{% endblock head %}
 </head>
-<!-- Body class is used by CSS to scope styles -->
 <body class="page">
   <header class="site-header">
-    <!-- Brand link goes back to home. url_for('index') is safer than hardcoding '/' -->
-    <a class="brand" href="{{ url_for('index') }}">
-      <!-- Try to render the logo; if it fails (file missing), hide the <img> so it doesn't show a broken icon -->
-      <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Waste-Sorter logo" onerror="this.style.display='none'">
+    <a class="brand" href="/">
+      <img src="{{ url_for('static', filename='img/logo.svg') }}"
+           alt="Waste-Sorter logo"
+           onerror="this.style.display='none'">
       <span>Waste-Sorter</span>
     </a>
-
-    <!-- Simple navigation. These routes are easy to add later. -->
     <nav class="nav">
-      <a href="{{ url_for('index') }}">Home</a>
-      <a href="{{ url_for('about') }}">About</a>
-      <a href="{{ url_for('docs') }}">Docs</a>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/docs">Docs</a>
     </nav>
   </header>
 
-  <!-- Main content area. Child pages fill this block. -->
-  <main class="content">
-    {% block content %}{% endblock %}
-  </main>
+  <!-- IMPORTANT: keep block name 'body' (team built against this) -->
+  {% block body %}{% endblock body %}
 
   <footer class="site-footer">
-    <!-- Quick project context helps a viewer understand what they’re seeing -->
-    <p>Model: YOLOv8s on TACO → merged into Recycling · Trash · Compost.</p>
+    <p>Model: YOLOv8s on TACO → Recycling · Trash · Compost.</p>
+    <!-- If a page includes #detected, the script below will auto-update text -->
+    <span id="detected" class="detected-text"></span>
   </footer>
 
-  <!-- Optional per-page scripts get injected here -->
-  {% block scripts %}{% endblock %}
+  {% block scripts %}
+  <!-- Poll /detection and update #detected if present -->
+  <script>
+    (function () {
+      const el = document.getElementById("detected");
+      if (!el) return;
+      async function tick() {
+        try {
+          const res = await fetch("/detection");
+          if (!res.ok) return;
+          const data = await res.json();
+          if (!data) return;
+          const pct = Math.round((data.confidence || 0) * 100);
+          el.textContent = `Detected: ${data.label} (${data.category}) · Confidence: ${pct}%`;
+        } catch (_) {}
+      }
+      tick();
+      setInterval(tick, 500);
+    })();
+  </script>
+  {% endblock %}
 </body>
 </html>
+
