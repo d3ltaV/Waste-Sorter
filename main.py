@@ -2,7 +2,7 @@ from flask import Flask, render_template, Response, jsonify
 import cv2
 from ultralytics import YOLO
 
-model = YOLO("runs/detect/train20/weights/best.pt")
+model = YOLO("runs/detect/v8m/weights/best.pt")
 
 id_to_category = {
     0: ("Aluminium foil", "Recycling"),

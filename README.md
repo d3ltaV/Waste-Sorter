@@ -1,6 +1,6 @@
 # NMH Waste Sorter: Program Description
 
-NMH Waste Sorter is built by Alan, Joelle, Lorcan, and Siddiqi. This program uses a YOLO model fine-tuned on the TACO dataset to determine if an object on camera or in an image is recyclable, compostable, or trash.
+NMH Waste Sorter is built by Alan, Joelle, Lorcan, and Siddiqi. This program uses a YOLO model fine-tuned on the TACO dataset to determine if an object on camera or in an image is recyclable or trash.
 
 ---
 
@@ -25,7 +25,7 @@ NMH Waste Sorter is built by Alan, Joelle, Lorcan, and Siddiqi. This program use
 |
 ```
 
-Datasets were indcluded inside the project directory.
+Datasets were included inside the project directory.
 
 ---
 
@@ -37,24 +37,63 @@ The TACO dataset has 18 classes:
 Aluminium foil, Battery, Blister pack, Bottle, Bottle cap, Broken glass, Can, Carton, Cigarette, Cup, Food waste, Glass jar, Lid, Paper, Paper bag, Plastic bag & wrapper, Plastic container, Plastic gloves, Plastic utensils, Pop tab, Rope, Scrap metal, Shoe, Squeezable tube, Straw, Styrofoam piece, Other plastic, Unlabeled litter
 
 Which were merged into the following:
-Recycling, Trash, Compost
+Recycling or Trash
 
 ---
 
 ## Training
 
-The model was trained in three phases:
-1. YOLOv8s with Adam optimizer for 100 Epochs
-2. last.pt was then trained with SGD for 200 Epochs
-3. last.pt from step 2 was trained with SGD for 150 epochs with augmentation=True
+### YOLOv8s
+1. Trained with Adam optimizer for 100 epochs
+2. Fine-tuned with SGD for 200 epochs
+3. Continued with SGD for 150 epochs with augmentation=True
 
-The inspiration for this training style came from this paper: https://www.opt-ml.org/papers/2021/paper53.pdf
-
+### YOLOv8m
+1. Trained with Adam optimizer for 100 epochs
+2. Fine-tuned for 200 epochs with augmentation=True
 ---
 
 ## Deployment
 
-To deploy this program, ensure Python is installed, clone the github repository with 'git clone'. Install dependencies in the requirements.txt file, and run the **main.py** file.
+1. Clone the repository: `git clone ...`
+2. Create and activate a virtual environment
+3. Install dependencies: `pip install -r requirements.txt`
+4. Run: `python main.py`
+
+
+---
+
+### How to Use
+
+In **main.py** Choose either v8m or v8s:
+```
+model = YOLO("runs/detect/v8m/weights/best.pt") # larger model, recommended for computers with CUDA GPUs
+```
+Or 
+```
+model = YOLO("runs/detect/v8s/weights/best.pt") # smaller model, recommended for computers without CUDA GPUs
+```
+
+Next, if desired, specify result properties:
+
+Default:
+```
+results = model(frame, verbose=False)
+```
+If webcam feed is choppy, try reducing image size (default is 640px)
+
+```
+results = model(frame, verbose=False, imgsz=100)
+```
+Lastly, run main and you should be prompted with the address to a local flask web app.
+
+---
+
+### Demo
+
+Screenshot of webcam feed detection (values indicate model confidence)
+
+<img src="static/demo.png" alt="Demo" width="400"/>
 
 ---
 
