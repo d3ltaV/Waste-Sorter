@@ -5,3 +5,13 @@ venv/
 
 #Python clutter
 __pycache__/
+
+.dataset/
+dataset/
+.filtered_dataset/
+filtered_dataset/
+simplified_pre.py
+explore.py
+tempCodeRunnerFile.py
+yolov8s.pt
+yolo11n.pt
