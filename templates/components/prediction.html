@@ -1,0 +1,23 @@
+<!-- Small reusable block that shows the top class with a pill, a confidence bar, and a tip. -->
+<div class="prediction-card">
+  <!-- The class name lowers to match CSS class selectors (recycling/trash/compost) for color themes -->
+  <div class="pill {{ top_class|lower }}">
+    {{ top_class }}
+  </div>
+
+  <div class="confidence">
+    <!-- Confidence bar width is set inline as a percentage to keep it simple -->
+    <div class="confidence-bar">
+      <span style="width: {{ (top_conf * 100) | round(0) }}%"></span>
+    </div>
+    <span class="confidence-text">{{ (top_conf * 100) | round(1) }}% confident</span>
+  </div>
+
+  <!-- Contextual tip improves usefulness (teaches proper disposal behavior) -->
+  <p class="tip">
+    {% if top_class == 'Recycling' %}Empty & rinse containers when possible.
+    {% elif top_class == 'Compost' %}Remove plastic/metal before composting.
+    {% else %}When in doubt, trash to avoid contamination.
+    {% endif %}
+  </p>
+</div>

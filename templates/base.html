@@ -1,0 +1,53 @@
+<!doctype html>
+<!-- The doctype tells the browser to use modern HTML rendering mode -->
+<html lang="en">
+<head>
+  <!-- Character encoding: UTF-8 supports most characters/symbols -->
+  <meta charset="utf-8" />
+  <!-- Makes layout responsive on phones (sets width to device width) -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- {% block title %} lets child pages set their own <title> -->
+  <title>{% block title %}Waste-Sorter{% endblock %}</title>
+
+  <!-- Load our CSS. url_for('static', ...) generates the correct path. -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  <!-- Optional nice font. Preconnect hints speed up font loading. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Extra head content (rare) can be inserted by child templates -->
+  {% block head %}{% endblock %}
+</head>
+<!-- Body class is used by CSS to scope styles -->
+<body class="page">
+  <header class="site-header">
+    <!-- Brand link goes back to home. url_for('index') is safer than hardcoding '/' -->
+    <a class="brand" href="{{ url_for('index') }}">
+      <!-- Try to render the logo; if it fails (file missing), hide the <img> so it doesn't show a broken icon -->
+      <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Waste-Sorter logo" onerror="this.style.display='none'">
+      <span>Waste-Sorter</span>
+    </a>
+
+    <!-- Simple navigation. These routes are easy to add later. -->
+    <nav class="nav">
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('docs') }}">Docs</a>
+    </nav>
+  </header>
+
+  <!-- Main content area. Child pages fill this block. -->
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <!-- Quick project context helps a viewer understand what they’re seeing -->
+    <p>Model: YOLOv8s on TACO → merged into Recycling · Trash · Compost.</p>
+  </footer>
+
+  <!-- Optional per-page scripts get injected here -->
+  {% block scripts %}{% endblock %}
+</body>
+</html>
