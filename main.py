@@ -27,11 +27,11 @@ id_to_category = {
 
 cap = cv2.VideoCapture(0)
 
-last_detected = {"label": "None", "category": "None", "confidence": 0.0}
+last_detections = []
 
 
 def generate_frames():
-    global last_detected
+    global last_detections
 
     while True:
         ret, frame = cap.read()
@@ -39,6 +39,8 @@ def generate_frames():
             break
 
         results = model(frame, verbose=False)
+
+        detections = []
 
         for r in results:
             for box in r.boxes:
@@ -48,16 +50,18 @@ def generate_frames():
 
                 label, category = id_to_category.get(class_id, ("Unknown", "Trash"))
 
-                last_detected = {
+                detections.append({
                     "label": label,
                     "category": category,
                     "confidence": round(conf, 2)
-                }
+                })
 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.putText(frame, f"{label} {conf:.2f}",
                             (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX,
                             0.7, (0, 255, 0), 2)
+
+        last_detections = detections
 
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
@@ -80,7 +84,7 @@ def video():
 
 @app.route('/detection')
 def detection():
-    return jsonify(last_detected)
+    return jsonify(last_detections)
 
 
 if __name__ == "__main__":
