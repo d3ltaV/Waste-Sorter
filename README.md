@@ -12,6 +12,10 @@ NMH Waste Sorter is built by Alan, Joelle, Lorcan, and Siddiqi. This program use
 |   static/             
 |       css/
 |           home.css            # Stylization for homepage
+|       img/
+|          logo.svg             # Webapp logo
+|       demo.png                # Model result demo image
+|           
 |   templates/              
 |       base.html               # Layout for homepage; calls model endpoint
 |       home.html               # Fills homepage content
@@ -19,10 +23,8 @@ NMH Waste Sorter is built by Alan, Joelle, Lorcan, and Siddiqi. This program use
 |   README.md                   # Documentation   
 |   counting.py                 # Some dataset exploration
 |   main.py                     # Main program file
-|   model.py                    # Training file for model
-|   utils.py                    # Helper functions
-|   webcam.py                   # Testing YOLO model for family day!
-|
+|   requirements.txt            # Dependencies
+|   yolov8m.pt                  # Base YOLOv8m model
 ```
 
 Datasets were included inside the project directory.
@@ -33,11 +35,28 @@ Datasets were included inside the project directory.
 
 The YOLO formatted TACO dataset was used in training: https://www.kaggle.com/datasets/vencerlanz09/taco-dataset-yolo-format
 
-The TACO dataset has 18 classes:
-Aluminium foil, Battery, Blister pack, Bottle, Bottle cap, Broken glass, Can, Carton, Cigarette, Cup, Food waste, Glass jar, Lid, Paper, Paper bag, Plastic bag & wrapper, Plastic container, Plastic gloves, Plastic utensils, Pop tab, Rope, Scrap metal, Shoe, Squeezable tube, Straw, Styrofoam piece, Other plastic, Unlabeled litter
+This dataset contains **18 classes**:  
+- Aluminium foil  
+- Bottle cap  
+- Bottle  
+- Broken glass  
+- Can  
+- Carton  
+- Cigarette  
+- Cup  
+- Lid  
+- Other litter  
+- Other plastic  
+- Paper  
+- Plastic bag / wrapper  
+- Plastic container  
+- Pop tab  
+- Straw  
+- Styrofoam piece  
+- Unlabeled litter  
 
-Which were merged into the following:
-Recycling or Trash
+For this project, these were merged into two categories:  
+**Recycling** or **Trash**.
 
 ---
 
